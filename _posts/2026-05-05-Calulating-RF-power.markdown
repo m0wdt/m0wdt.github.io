@@ -96,25 +96,19 @@ I am often using an oscilloscope to measure the power being delivered by a trans
 
             const Vpp = parseFloat(vppInput);
 
-            // 1. Calculate Peak Voltage (Vp)
-            // Relationship: Vp = Vpp / 2 (For a sine wave peak amplitude)
+            // Calculate Peak Voltage (Vp)
             const Vp = Vpp / 2;
 
-            // 2. Calculate RMS Voltage (Vrms)
-            // Relationship: Vrms = Vp / sqrt(2) OR Vrms = Vpp / 2 * (1 / sqrt(2))
-            // Vrms = Vpp / (2 * sqrt(2))
-            const Vrms = Vpp / Math.SQRT2; // Using Vrms = Vpp / sqrt(2) is incorrect for standard definitions.
-                                           // Standard relationship: Vrms = Vp / sqrt(2) => Vrms = (Vpp/2) / sqrt(2)
-            const VrmsCorrect = Vp / Math.SQRT2;
+            // Calculate RMS Voltage (Vrms) 
+            const Vrms = Vp / Math.SQRT2;
 
-            // 3. Calculate Power into 50 Ohms (P)
-            // Relationship: P = Vrms^2 / R
+            // Calculate Power into 50 Ohms (P)
             const R = 50; // Ohms
-            const Power = Math.pow(VrmsCorrect, 2) / R;
+            const Power = Math.pow(Vrms, 2) / R;
 
-            // Display results, rounding to 3 decimal places for clarity
+            // Display results, rounding to 3
             document.getElementById('peakVpResult').textContent = `${Vp.toFixed(3)} V`;
-            document.getElementById('rmsVResult').textContent = `${VrmsCorrect.toFixed(3)} V`;
+            document.getElementById('rmsVResult').textContent = `${Vrms.toFixed(3)} V`;
             document.getElementById('powerResult').textContent = `${Power.toFixed(3)} W`;
         }
     
