@@ -4,6 +4,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {%- seo -%}
   <link rel="stylesheet" href="{{ "/assets/main.css" | relative_url }}">
+  {%- assign custom_styles = page.custom_css | default: page.css -%}
+  {%- if custom_styles -%}
+    {%- if custom_styles.first -%}
+      {%- for stylesheet in custom_styles -%}
+  <link rel="stylesheet" href="{{ stylesheet | relative_url }}">
+      {%- endfor -%}
+    {%- else -%}
+  <link rel="stylesheet" href="{{ custom_styles | relative_url }}">
+    {%- endif -%}
+  {%- endif -%}
   {%- feed_meta -%}
   {%- if jekyll.environment == 'production' and site.google_analytics -%}
     {%- include google-analytics.html -%}

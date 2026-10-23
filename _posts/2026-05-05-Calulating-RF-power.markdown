@@ -3,66 +3,11 @@ layout: post
 title: "Calculating RF power"
 date: 2026-05-05
 description: Calculating RF power
+custom_css: /assets/css/calculators.css
 --- 
 
 I am often using an oscilloscope to measure the power being delivered by a transmitter. This calulator will convert peak to peak voltage across a 50 Ohm load into power.    
 
-<style>
-
-        .calculator-container {
-            background: #f4f4f4;
-            allign: center;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 400px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-        input[type="number"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box; /* Important for padding/width consistency */
-        }
-        button {
-            background-color: #2a7ae2;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            width: 100%;
-        }
-        button:hover {
-            background-color: #1756a9;
-        }
-        .results {
-            margin-top: 25px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: #e8e8e8;
-        }
-        .results p {
-            margin: 5px 0;
-            font-size: 1.1em;
-            display: flex;
-            justify-content: space-between;
-            flex-direction: row;
-            align-items: center;
-        }
-</style>
 <div class="calculator-container">
     <h2>RF Power Calculator</h2>
 
@@ -76,6 +21,7 @@ I am often using an oscilloscope to measure the power being delivered by a trans
         <p>Peak Voltage: <span id="peakVpResult">--</span></p>
         <p>RMS Voltage: <span id="rmsVResult">--</span></p>
         <p>Power into 50Ω: <span id="powerResult">--</span></p>
+        <p>Power into 50Ω dBm: <span id="powerResultDbM">--</span></p>
     </div>
 </div>
 <script>
@@ -91,6 +37,7 @@ I am often using an oscilloscope to measure the power being delivered by a trans
                 document.getElementById('peakVpResult').textContent = '--';
                 document.getElementById('rmsVResult').textContent = '--';
                 document.getElementById('powerResult').textContent = '--';
+                document.getElementById('powerResultDbM').textContent = '--';
                 return;
             }
 
@@ -110,6 +57,7 @@ I am often using an oscilloscope to measure the power being delivered by a trans
             document.getElementById('peakVpResult').textContent = `${Vp.toFixed(3)} V`;
             document.getElementById('rmsVResult').textContent = `${Vrms.toFixed(3)} V`;
             document.getElementById('powerResult').textContent = `${Power.toFixed(3)} W`;
+            document.getElementById('powerResultDbM').textContent = `${(10 * Math.log10((Power*1000)/1)).toFixed(2)} dBm`;
         }
     
 </script>
@@ -131,6 +79,7 @@ The power delivered to a 50 ohm load is calculated using the formula P = Vrms^2 
 
 \[V_{pp} = \sqrt{V_{rms} * 50} \]
   
-
+#### 4. Power into 50Ω dBm
+\[P_{dBm} = 10 \log_{10}(\frac{P_{mW}}{1 mW})\]
  
 
